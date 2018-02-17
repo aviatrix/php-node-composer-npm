@@ -1,5 +1,5 @@
 FROM php:7.1
-MAINTAINER Mikołaj Pich "m.pich@outlook.com"
+MAINTAINER Nikola Sivkov "erasrz+doker@gmail.com"
 
 RUN apt update && apt install -y \
         git \
@@ -11,11 +11,15 @@ RUN apt update && apt install -y \
         libpng12-dev \
         build-essential \
         zlib1g-dev \
+        zip \
+        unzip \
+        
 
   # node & npm
-  && curl -sL https://deb.nodesource.com/setup_8.x | bash - \
-  && apt update && apt install -y nodejs \
-
+  && curl -sL https://deb.nodesource.com/setup_9.x | bash - \
+  && curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+  && echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+  && apt update && apt install -y nodejs yarn \
   # composer
   && curl -o /tmp/composer-setup.php https://getcomposer.org/installer \
   && curl -o /tmp/composer-setup.sig https://composer.github.io/installer.sig \
@@ -41,11 +45,5 @@ RUN apt update && apt install -y \
         mysqli \
         opcache \
         pdo_mysql \
-
-  && pecl install \
-        memcached-3.0.3 \
-
-  && docker-php-ext-enable \
-        memcached \
 
   && docker-php-source delete
