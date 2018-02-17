@@ -7,19 +7,18 @@ RUN apt update && apt install -y \
         libfreetype6-dev \
         libjpeg62-turbo-dev \
         libmcrypt-dev \
-        libmemcached-dev \
-        libpng12-dev \
         build-essential \
         zlib1g-dev \
         zip \
         unzip \
-        
+        gnupg2 \
+
   # node & npm
-  && curl -sL https://deb.nodesource.com/setup_9.x | bash - \
-  && curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add - \
-  && echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list \
+  && curl -sL https://deb.nodesource.com/setup_8.x | bash - \
+  && curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
+  && echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list \
   && apt update && apt install -y nodejs yarn \
-  
+
   # composer
   && curl -o /tmp/composer-setup.php https://getcomposer.org/installer \
   && curl -o /tmp/composer-setup.sig https://composer.github.io/installer.sig \
@@ -41,7 +40,6 @@ RUN apt update && apt install -y \
   && NPROC=$(getconf _NPROCESSORS_ONLN) \
 
   && docker-php-ext-install -j${NPROC} gd \
-        mcrypt \
         mysqli \
         opcache \
         pdo_mysql \
