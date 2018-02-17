@@ -14,12 +14,12 @@ RUN apt update && apt install -y \
         zip \
         unzip \
         
-
   # node & npm
   && curl -sL https://deb.nodesource.com/setup_9.x | bash - \
   && curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
   && echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
   && apt update && apt install -y nodejs yarn \
+  
   # composer
   && curl -o /tmp/composer-setup.php https://getcomposer.org/installer \
   && curl -o /tmp/composer-setup.sig https://composer.github.io/installer.sig \
