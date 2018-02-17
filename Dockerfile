@@ -1,4 +1,4 @@
-FROM php:7.1
+FROM php:7.2
 MAINTAINER Nikola Sivkov "erasrz+doker@gmail.com"
 
 RUN apt update && apt install -y \
